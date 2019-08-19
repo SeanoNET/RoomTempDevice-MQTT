@@ -1,5 +1,5 @@
 # RoomTempDevice-MQTT
-Sends sensor data from a MXChip AZ3166 IoT Devkit to a MQTT Broker, a local/cheaper alternative to the cloud based solution [RoomTempDevice-IoT](https://github.com/SeanoNET/RoomTempDevice-IoT)
+Sends sensor data from a MXChip AZ3166 IoT Devkit to a MQTT Broker. A local/cheaper alternative to a cloud based solution [RoomTempDevice-IoT](https://github.com/SeanoNET/RoomTempDevice-IoT)
 
 ## Getting Started
 * Run through [Get started - IoT DevKit guide](https://microsoft.github.io/azure-iot-developer-kit/docs/get-started/)
@@ -35,4 +35,9 @@ An example of the MQTT message payload
 
 ## MQTT Broker
 
-There are plenty of MQTT brokers to choose from. This example was implemented using [Eclipse Mosquitto](https://mosquitto.org/) running in docker. For information on how to setup and configure the Mosquitto MQTT broker see [eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto) or binary installation [downloads](https://mosquitto.org/download/)
+There are plenty of MQTT brokers to choose from. This example was implemented using [Eclipse Mosquitto](https://mosquitto.org/) running in docker. For information on how to setup and configure the Mosquitto MQTT broker running in docker see [eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto) or binary installation [downloads](https://mosquitto.org/download/)
+
+
+## MQTT Consumer
+
+To consume the data published to the broker and save it into Microsoft SQL Server see [RoomTempMQTTConsumer](https://github.com/SeanoNET/RoomTempMQTTConsumer)

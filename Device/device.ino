@@ -174,7 +174,7 @@ void sendMqttMessage()
   if ((rc = client->publish(topic, message)) == 0)
   {
     Serial.println("Message published successfully");
-    Screen.print(LINE_1, "Sent successfully");
+    Screen.print(LINE_1, "OK");
   }
   else
   {
@@ -191,8 +191,6 @@ void setup() {
   Screen.print(HEADER, "Setup...");
 
   hasWifi = false;
-
-  // Check for Wifi connection
   InitWifi();
 
   if(!hasWifi){
@@ -205,7 +203,7 @@ void setup() {
     return;
   }
 
-  // Connect to MQTT server
+  // Connection to MQTT server
   ConnectToMqqtServer();
 
   Serial.print("Sending interval at ");
@@ -224,6 +222,12 @@ void loop() {
   {
     sendMqttMessage();
   }
+  else
+  {
+    Screen.print(LINE_1, "An error has occurred");
+    SetLEDError();
+  }
+  
 
   delay(send_interval);
 }
