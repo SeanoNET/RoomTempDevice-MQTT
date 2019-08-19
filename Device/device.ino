@@ -12,8 +12,16 @@
 #define LINE_2 2
 #define LINE_3 3
 
+///// Config
 #define send_interval 2000
 #define setup_delay 2000
+
+const char* mqtt_server = "10.1.1.97";   
+int port = 1883;
+const char* topic = "home/room/temp-mon/data";
+char* client_id = "temp-mon";
+char* username = "";
+char* password = "";
 
 static const float DEFAULT_TEMP = -1000;
 static const float DEFAULT_HUMID = -1000;
@@ -30,10 +38,7 @@ static RGB_LED rgbLed;
 int status = WL_IDLE_STATUS;
 int arrivedcount = 0;
 
-const char* mqttServer = "10.1.1.97";   
-int port = 1883;
-const char* topic = "home/room/temp-mon/data";
-char* clientId = "temp-mon";
+
 
 ///// Init
 static void InitWifi()
@@ -114,12 +119,12 @@ void ConnectToMqqtServer()
 
   char msgBuf[100];
   Screen.print(LINE_1, "Connecting to MQTT server..");
-  sprintf(msgBuf, "Connecting to MQTT server %s:%d", mqttServer, port);
+  sprintf(msgBuf, "Connecting to MQTT server %s:%d", mqtt_server, port);
   Serial.println(msgBuf);
 
   blinkLED();
 
-  int rc = mqttNetwork->connect(mqttServer, port);
+  int rc = mqttNetwork->connect(mqtt_server, port);
   if (rc != 0) {
     Serial.println("Connected to MQTT server failed");
     Screen.print(LINE_1, "Failed to connect...");
@@ -131,32 +136,15 @@ void ConnectToMqqtServer()
 
   MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
   data.MQTTVersion = 3;
-  data.clientID.cstring = clientId;
-  data.username.cstring = (char*)"";
-  data.password.cstring = (char*)"";
+  data.clientID.cstring = client_id;
+  data.username.cstring = username;
+  data.password.cstring = password;
   
   if ((rc = client->connect(data)) != 0) {
       Serial.println("MQTT client connect to server failed");
       SetLEDError();
   }
   
-  if ((rc = client->subscribe(topic, MQTT::QOS2, messageArrived)) != 0) {
-      Serial.println("MQTT client subscribe from server failed");
-      SetLEDError();
-  }
-}
-
-void messageArrived(MQTT::MessageData& md)
-{
-    MQTT::Message &message = md.message;
-
-    char msgInfo[60];
-    sprintf(msgInfo, "Message arrived: qos %d, retained %d, dup %d, packetid %d", message.qos, message.retained, message.dup, message.id);
-    Serial.println(msgInfo);
-
-    sprintf(msgInfo, "Payload: %s", (char*)message.payload);
-    Serial.println(msgInfo);
-    ++arrivedcount;
 }
 
 void sendMqttMessage() 

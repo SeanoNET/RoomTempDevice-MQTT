@@ -15,10 +15,12 @@ Sends sensor data from a MXChip AZ3166 IoT Devkit to a MQTT Broker, a local/chea
 |---|---|
 |`send_interval`| The interval at which the device will send the payload to the MQTT broker.|
 |`setup_delay` | The delay the setup messages will be displayed on the screen.|
-|`mqttServer` | The MQTT broker server IP.|    
+|`mqtt_server` | The MQTT broker server IP.|
+|`username` | The MQTT broker server username.| 
+|`password` | The MQTT broker server password.|     
 |`port` | The MQTT broker server port.|    
 |`topic` | The MQTT topic `home/room/temp-mon/data`.|    
-|`clientId` | The MQTT device client id `temp-mon`.|        
+|`client_id` | The MQTT device client id `temp-mon`.|        
 
 ## Payload 
 
@@ -31,3 +33,6 @@ An example of the MQTT message payload
 }
 ```
 
+## MQTT Broker
+
+There are plenty of MQTT brokers to choose from. This example was implemented using [Eclipse Mosquitto](https://mosquitto.org/) running in docker. For information on how to setup and configure the Mosquitto MQTT broker see [eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto) or binary installation [downloads](https://mosquitto.org/download/)
