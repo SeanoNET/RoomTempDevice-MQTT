@@ -16,7 +16,7 @@
 #define send_interval 2000
 #define setup_delay 2000
 
-const char* mqtt_server = "10.1.1.97";   
+const char* mqtt_server = "10.1.1.201";   
 int port = 1883;
 const char* topic = "home/room/temp-mon/data";
 char* client_id = "temp-mon";
